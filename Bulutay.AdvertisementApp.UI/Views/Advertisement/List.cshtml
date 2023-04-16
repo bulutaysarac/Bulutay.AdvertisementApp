@@ -1,0 +1,45 @@
+﻿@model List<AdvertisementListDto>
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="d-grid gap-2 my-3">
+        <a asp-action="Create" asp-controller="Advertisement" class="btn btn-success">Create New Advertisement</a>
+    </div>
+    @if (Model?.Count > 0)
+    {
+        <table class="table table-sm table-hover table-striped my-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Created Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdvertisementListDto advertisement in Model)
+                {
+                    <tr>
+                        <td>@advertisement.Title</td>
+                        <td>@(advertisement.Status ? "Active" : "Passive")</td>
+                        <td>@advertisement.Description</td>
+                        <td>@advertisement.CreatedDate</td>
+                        <td>
+                            <a asp-action="Update" asp-controller="Advertisement" asp-route-id="@advertisement.Id" class="btn btn-success">Update</a> |
+                            <a asp-action="Remove" asp-controller="Advertisement" asp-route-id="@advertisement.Id" class="btn btn-danger">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="my-3 text-center lead">
+            There are no advertisements that been created!
+        </div>
+    }
+</div>

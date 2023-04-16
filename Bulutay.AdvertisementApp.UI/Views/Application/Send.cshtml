@@ -1,0 +1,62 @@
+﻿@model AdvertisementAppUserCreateModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="w-75 mx-auto p-3">
+    <form asp-action="Send" asp-controller="Application" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="@Model.AdvertisementId" />
+        <input type="hidden" asp-for="@Model.AppUserId" />
+        @if (ViewBag.GenderId == (int)GenderType.Male)
+        {
+            <div class="mb-3">
+                <label asp-for="@Model.MilitaryStatusId">Military Status :</label>
+                <select asp-for="@Model.MilitaryStatusId" class="form-select">
+                    <option value="0">Select military status</option>
+                    @foreach (var militaryStatus in ViewBag.MilitaryStatusList)
+                    {
+                        <option value="@militaryStatus.Id">@militaryStatus.Definition</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3 d-none">
+                <label for="@Model.EndDate">Delay Date :</label>
+                <input type="date" asp-for="@Model.EndDate" class="form-control" />
+            </div>
+        }
+        else
+        {
+            <input type="hidden" asp-for="@Model.MilitaryStatusId" value="@((int)MilitaryStatusType.Exempt)" />
+        }
+        <div class="mb-3">
+            <label asp-for="@Model.WorkExperience">Work Experience (In Years) :</label>
+            <input type="number" asp-for="@Model.WorkExperience" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.CvFile">Cv File :</label>
+            <input type="file" asp-for="@Model.CvFile" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </form>
+</div>
+@section scripts {
+    <script>
+        const militaryStatusComboBox = document.getElementById("MilitaryStatusId");
+        const dateContainer = document.getElementById("EndDate").parentElement;
+
+        if(militaryStatusComboBox.value == 2 && dateContainer.classList.contains("d-none")) {
+            dateContainer.classList.remove("d-none");
+        }
+
+        militaryStatusComboBox.addEventListener("input", e => {
+            if(militaryStatusComboBox.value == 2) {
+                dateContainer.classList.remove("d-none");
+            }
+            else {
+                dateContainer.classList.add("d-none");
+            }
+        });
+    </script>
+}

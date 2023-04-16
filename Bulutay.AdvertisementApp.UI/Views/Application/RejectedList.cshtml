@@ -1,0 +1,51 @@
+﻿@model List<AdvertisementAppUserListDto>
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="d-grid gap-2 my-3">
+        <a asp-action="ApprovedList" asp-controller="Application" class="btn btn-success">Approved Applications</a>
+    </div>
+    @if (Model?.Count > 0)
+    {
+        <table class="table table-sm table-hover table-striped my-3">
+            <thead>
+                <tr>
+                    <th>Advertisement</th>
+                    <th>Applicant User</th>
+                    <th>Gender of Applicant User</th>
+                    <th>Military Service Status of Applicant User</th>
+                    <th>Delay Date of Military Service</th>
+                    <th>Work Experience of Applicant User</th>
+                    <th>Status of Advertisement</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdvertisementAppUserListDto advertisementAppUser in Model)
+                {
+                    <tr>
+                        <td>@advertisementAppUser.Advertisement.Title</td>
+                        <td>@advertisementAppUser.AppUser.Firstname @advertisementAppUser.AppUser.Surname</td>
+                        <td>@advertisementAppUser.AppUser.Gender.Definition</td>
+                        <td>@advertisementAppUser.MilitaryStatus.Definition</td>
+                        <td>@(advertisementAppUser.EndDate == null ? "Exempt or Done" : advertisementAppUser.EndDate.ToString())</td>
+                        <td>@advertisementAppUser.WorkExperience</td>
+                        <td>@advertisementAppUser.AdvertisementAppUserStatus.Definition</td>
+                        <td>
+                            <a asp-action="SetStatus" asp-controller="Application" asp-route-advertisementAppUserId="@advertisementAppUser.Id" asp-route-type="@((int)AdvertisementAppUserStatusType.CalledForInterview)" asp-route-path="RejectedList" class="btn btn-success">Call for an Interview</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="my-3 text-center lead">
+            There are no applications that been made!
+        </div>
+    }
+</div>
+

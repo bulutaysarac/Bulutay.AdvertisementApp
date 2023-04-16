@@ -1,0 +1,39 @@
+﻿@model AdvertisementCreateDto
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <form asp-action="Create" asp-controller="Advertisement" method="post" class="my-3">
+        <div class="mb-3">
+            <label asp-for="@Model.Title">Advertisement Title : </label>
+            <input type="text" class="form-control" asp-for="@Model.Title" />
+        </div>
+        <div class="mb-3">
+            <input type="checkbox" class="form-check-input" asp-for="@Model.Status" />
+            <label asp-for="@Model.Status" class="form-check-label">Active</label>
+        </div>
+        <div class="mb-3">
+            <textarea asp-for="@Model.Description" class="form-control"></textarea>
+        </div>
+        <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Description").trumbowyg();
+        });
+    </script>
+}
+
+@section css {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css" integrity="sha512-Fm8kRNVGCBZn0sPmwJbVXlqfJmPC13zRsMElZenX6v721g/H7OukJd8XzDEBRQ2FSATK8xNF9UYvzsCtUpfeJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}

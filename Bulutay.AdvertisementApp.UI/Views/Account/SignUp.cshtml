@@ -1,0 +1,67 @@
+﻿@model AppUserCreateModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <form asp-action="SignUp" asp-controller="Account" method="post">
+        <div class="mb-3">
+            <label asp-for="@Model.Firstname">Firstname : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Firstname" class="text-danger"></span>
+            <input asp-for="@Model.Firstname" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Surname">Surname : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Surname" class="text-danger"></span>
+            <input asp-for="@Model.Surname" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.GenderId">Gender : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.GenderId" class="text-danger"></span>
+            <select class="form-select" asp-for="@Model.GenderId">
+                <option value="0">Select gender</option>
+                @foreach (var gender in Model.Genders)
+                {
+                    <option value="@gender.Id">@gender.Definition</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.PhoneNumber">Phone Number : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+            <input asp-for="@Model.PhoneNumber" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Email">E-Mail : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            <input type="email" asp-for="@Model.Email" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Username">Username : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+            <input asp-for="@Model.Username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Password">Password : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            <input type="password" asp-for="@Model.Password" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.ConfirmPassword">Confirm Password : </label>
+            <span class="text-danger">*</span>
+            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+            <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" />
+        </div>
+        <div class="mb-3 d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>
